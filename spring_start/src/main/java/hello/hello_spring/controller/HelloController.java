@@ -28,7 +28,7 @@ public class HelloController {
     }
 
     @GetMapping("hello-api2")
-    @ResponseBody
+    @ResponseBody // HTTP의 BODY 부분에 데이터를 직접 담겠다는 어노테이션
     public Hello helloApi2(@RequestParam("name")String name){
         Hello hello = new Hello();
         hello.setName(name);
