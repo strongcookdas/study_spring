@@ -1,27 +1,27 @@
 package hello.hello_spring.service;
 
 import hello.hello_spring.domain.Member;
+import hello.hello_spring.repository.MemberRepository;
 import hello.hello_spring.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-//단위 테스트
-class MemberServiceTest {
+// 통합 테스트
+@SpringBootTest
+// 스프링 컨테이너와 테스트를 함께 실행한다.
+@Transactional
+// @Transactional은 롤백하는 기능이 포함되어 있다.
+class MemberServiceIntegerationTest {
+    @Autowired
     MemberService memberService;
-    MemoryMemberRepository repository;
-
-    @BeforeEach
-    public void beforEach(){
-        repository = new MemoryMemberRepository();
-        memberService = new MemberService(repository);
-    }
-    @AfterEach
-    public void afterEach(){
-        repository.clearStore();
-    }
+    @Autowired
+    MemberRepository repository;
 
     @Test
     void 회원가입() {
@@ -48,9 +48,5 @@ class MemberServiceTest {
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
-    }
-
-    @Test
-    void findOne() {
     }
 }
