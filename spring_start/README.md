@@ -38,3 +38,9 @@
 * 스프링 JDBCTemplate
 * JPA
 * 스프링 데이터 JPA
+<hr/>
+
+## AOP
+* AOP가 필요한 상황
+* AOP 적용
+<hr/>
